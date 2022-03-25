@@ -1,8 +1,8 @@
 function getInputs(fieldId) {
     const inputField = document.getElementById(fieldId);
-    const inputFieldText= inputField.value;
+    const inputFieldText = inputField.value;
     const value = parseFloat(inputFieldText);
-    inputField.value ='';
+    inputField.value = '';
     return value;
 
 }
@@ -27,24 +27,27 @@ function updateBalance(amount, isAdding) {
 
         newBalance = currentBalance + amount;
 
-    }
-    else{
+    } else {
         newBalance = currentBalance - amount;
     }
 
 
-    totalBalance.innerText= newBalance;
-     
+    totalBalance.innerText = newBalance;
+
 }
 
-document.getElementById('deposit-button').addEventListener('click', function(){
-    const depositAmout= getInputs("deposit-input");
-    updateField('deposit-total', depositAmout);
-    updateBalance(depositAmout, true);
-    
+document.getElementById('deposit-button').addEventListener('click', function () {
+    const depositAmout = getInputs("deposit-input");
+    if (depositAmout > 0) {
+        updateField('deposit-total', depositAmout);
+        updateBalance(depositAmout, true);
+    }
+
 })
-document.getElementById('withdraw-button').addEventListener('click', function(){
-    const withdrawAmout= getInputs("withdraw-input");
-    updateField('withdraw-total', withdrawAmout);
-    updateBalance(withdrawAmout, false);
+document.getElementById('withdraw-button').addEventListener('click', function () {
+    const withdrawAmout = getInputs("withdraw-input");
+    if (withdrawAmout > 0) {
+        updateField('withdraw-total', withdrawAmout);
+        updateBalance(withdrawAmout, false);
+    }
 })
