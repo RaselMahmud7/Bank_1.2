@@ -12,4 +12,7 @@ if(userEmail == 'admin@rm7.com' && userPassword == 'admin-rm7'){
 }
      
 }) 
+document.getElementById('details').addEventListener('click', function(){
+    alert('User Name: admin@rm7.com  && Password: admin-rm7')
+})
 
