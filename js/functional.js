@@ -7,23 +7,27 @@ function getInputs(fieldId) {
 
 }
 
+function getInnerTextValue(fieldId) {
+    const innerTextField = document.getElementById(fieldId);
+    const previousTotal = innerTextField.innerText;
+    const value = parseFloat(previousTotal);
+    return value;
+}
+
 function updateField(fieldId, amount) {
-    const totalField = document.getElementById(fieldId);
-    const previousTotal = totalField.innerText;
-    const currentTotal = parseFloat(previousTotal);
+
+    const currentTotal = getInnerTextValue(fieldId);
     const newTotal = currentTotal + amount;
-    totalField.innerText = newTotal;
+    document.getElementById(fieldId).innerText = newTotal;
     return newTotal;
 
 }
 
 function updateBalance(amount, isAdding) {
-    const totalBalance = document.getElementById('total-balance');
-    const previousBalanceText = totalBalance.innerText;
-    const currentBalance = parseFloat(previousBalanceText);
+    const currentBalance = getInnerTextValue('total-balance')
     let newBalance;
 
-    if (isAdding === true) {
+    if (isAdding == true) {
 
         newBalance = currentBalance + amount;
 
@@ -32,7 +36,7 @@ function updateBalance(amount, isAdding) {
     }
 
 
-    totalBalance.innerText = newBalance;
+    document.getElementById('total-balance').innerText = newBalance;
 
 }
 
@@ -44,10 +48,22 @@ document.getElementById('deposit-button').addEventListener('click', function () 
     }
 
 })
+
 document.getElementById('withdraw-button').addEventListener('click', function () {
     const withdrawAmout = getInputs("withdraw-input");
-    if (withdrawAmout > 0) {
+    const balance = getInnerTextValue('total-balance');
+
+ if (withdrawAmout <= 0) {
+     alert('Please enter a valid withdraw amount')
+ }
+    else if (withdrawAmout > 0 && withdrawAmout > balance) {
+        alert("Your balance is lower than Withdraw Amount")
+
+    }
+    
+    else {
         updateField('withdraw-total', withdrawAmout);
         updateBalance(withdrawAmout, false);
     }
+
 })
